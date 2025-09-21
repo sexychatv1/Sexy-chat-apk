@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SexyChat - Adult Chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000, #1A0006);
+      overflow-x: hidden;
+    }
+
+    /* Background Image + Blur Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://i.postimg.cc/7P5qfTW1/aditi-mistry-hot-live-app.jpg") no-repeat center center/cover;
+      filter: blur(12px) brightness(0.45);
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 25px;
+      max-width: 420px;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      position: relative;
+    }
+
+    /* Sexy Title */
+    .card h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #FF3366;
+      text-shadow: 0 0 15px #FF0033;
+      letter-spacing: 2px;
+    }
+
+    .card p.tagline {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #FF99B2;
+    }
+
+    /* Main Sexy Image */
+    .card img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
+    }
+
+    /* Features Section */
+    .features {
+      background: rgba(255, 0, 51, 0.05);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: left;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 0, 51, 0.3);
+    }
+
+    .features li {
+      margin-bottom: 12px;
+      list-style: none;
+      font-size: 15px;
+      color: #fff;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .features li::before {
+      content: "🔥";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* Live Girls Carousel */
+    .live-girls {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .live-girls::-webkit-scrollbar {
+      display: none;
+    }
+
+    .girl-card {
+      background: rgba(255, 0, 51, 0.05);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      border-radius: 15px;
+      padding: 8px;
+      text-align: center;
+      min-width: 90px;
+      position: relative;
+    }
+
+    .girl-card img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 5px;
+    }
+
+    .girl-card span {
+      font-size: 13px;
+      color: #fff;
+      display: block;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: #FF0033;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    /* Sexy Download Button */
+    .download-btn {
+      display: inline-block;
+      padding: 16px 45px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(45deg, #FF0033, #B30024);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0px 5px 20px rgba(255, 0, 51, 0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .download-btn::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 60px;
+      background: radial-gradient(rgba(255, 0, 51, 0.4), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.08);
+      background: linear-gradient(45deg, #FF3366, #B30024);
+    }
+
+    .download-btn:hover::after {
+      opacity: 1;
+    }
+
+    /* Countdown Timer */
+    #countdown {
+      color: #FF3366;
+      font-size: 14px;
+      margin-top: 8px;
+      text-shadow: 0 0 5px rgba(255,0,51,0.8);
+    }
+
+    /* Trust Badges */
+    .trust-badges {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .trust-badge {
+      flex: 1;
+      text-align: center;
+      background: rgba(255, 0, 51, 0.05);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    /* Live Popup Notification */
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 0, 51, 0.9);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      display: none;
+      animation: fadeInOut 5s ease-in-out;
+      z-index: 1000;
+      box-shadow: 0 0 15px rgba(255,0,51,0.8);
+    }
+
+    @keyframes fadeInOut {
+      0% {opacity: 0; bottom: 10px;}
+      20% {opacity: 1; bottom: 20px;}
+      80% {opacity: 1; bottom: 20px;}
+      100% {opacity: 0; bottom: 10px;}
+    }
+
+    /* Footer Section */
+    .footer {
+      font-size: 11px;
+      margin-top: 18px;
+      color: #999;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>SexyChat</h1>
+      <p class="tagline">Live. Hot. Private.</p>
+
+      <img src="https://i.postimg.cc/7P5qfTW1/aditi-mistry-hot-live-app.jpg" alt="SexyChat Main Image">
+
+      <!-- Live Girls Section -->
+      <div class="live-girls">
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/RZhDScFK/NNN-9.jpg" alt="Priya">
+          <span>Priya, 21</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/tCXcf0Gr/mona.png" alt="Riya">
+          <span>Riya, 22</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/CLQRtgfY/instagram-sensation-sofia-ansari-viral-bold-photoshoot-167101864730.webp" alt="Sofia">
+          <span>Sofia, 23</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/Wbk7XXh9/489bb4777a83ba478f96121110afbbf5.jpg" alt="Nidhi">
+          <span>Nidhi, 20</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/pL5JckrG/images.jpg" alt="Ananya">
+          <span>Ananya, 21</span>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <ul class="features">
+        <li>Private & secure 18+ video calls</li>
+        <li>Free 5 min chat for first 100 users</li>
+        <li>Live sexy models 24/7 waiting for you</li>
+        <li>No ads, 100% discreet and private</li>
+      </ul>
+
+      <!-- Download Button -->
+      <a href="https://github.com/sexychatv1/Sexy-chat-apk/releases/download/V_1.1/sexy_chat.apk" class="download-btn">🔥 Start Free Chat Now</a>
+      <p id="countdown"></p>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="trust-badge">✅ Verified Profiles</div>
+        <div class="trust-badge">🔒 Secure & Private</div>
+        <div class="trust-badge">⭐ 50K+ Users</div>
+      </div>
+
+      <div class="footer">
+        By downloading, you confirm you are 18+ and agree to our Terms.<br>
+        © 2025 SexyChat. All rights reserved.
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Popup Notification -->
+  <div id="popup" class="popup"></div>
+
+  <script>
+    // Countdown Timer
+    function startTimer(duration, display) {
+      let timer = duration, minutes, seconds;
+      setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = `⏳ Offer Ends in ${minutes}:${seconds}`;
+
+        if (--timer < 0) {
+          timer = duration;
+        }
+      }, 1000);
+    }
+
+    window.onload = function() {
+      const fiveMinutes = 60 * 5;
+      startTimer(fiveMinutes, document.querySelector('#countdown'));
+
+      // Live Popup Notifications
+      const popup = document.getElementById("popup");
+      const messages = [
+        "🔥 Sneha just went live - Join now!",
+        "💋 Aditi is available for a private call!",
+        "😍 Riya started a hot new show!",
+        "🔥 3 new models are live right now!"
+      ];
+
+      setInterval(() => {
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        popup.textContent = randomMessage;
+        popup.style.display = "block";
+        setTimeout(() => {
+          popup.style.display = "none";
+        }, 4000);
+      }, 8000);
+    };
+  </script>
+</body>
+</html>
