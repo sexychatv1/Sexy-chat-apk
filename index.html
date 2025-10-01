@@ -3,144 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SexyChat - Adult Chat</title>
+  <title>SexyChat - Premium</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family: Arial, sans-serif;
+      background:#0a0a0a;
+      color:#fff;
+      overflow-x:hidden;
     }
 
-    body, html {
-      height: 100%;
-      font-family: 'Poppins', Arial, sans-serif;
-      background: linear-gradient(135deg, #000000, #1A0006);
-      overflow-x: hidden;
+    /* Hero Section */
+    header{
+      min-height:90vh;
+      background:url("https://i.postimg.cc/3Nj6dzrn/1000125288.jpg") center/cover no-repeat;
+      display:flex;justify-content:center;align-items:flex-start;
+      text-align:center;position:relative;padding:50px 20px 0;
+    }
+    header::after{
+      content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+      background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0.85));
+      z-index:1;
+    }
+    .hero-content{position:relative;z-index:2;max-width:650px;}
+    header h1{
+      font-size:50px;margin-bottom:15px;
+      color:#ff3366;text-shadow:0 0 15px #ff0033;
+    }
+    header p{
+      font-size:20px;margin-bottom:25px;
+      color:#ffb3c1;
     }
 
-    /* Background Image + Blur Overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url("https://i.postimg.cc/7P5qfTW1/aditi-mistry-hot-live-app.jpg") no-repeat center center/cover;
-      filter: blur(12px) brightness(0.45);
-      z-index: -1;
+    /* Top Stats */
+    .top-stats{
+      display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-bottom:25px;
+    }
+    .top-stats span{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,0,51,0.4);
+      padding:6px 14px;border-radius:25px;
+      font-size:14px;color:#fff;
+      transition:transform 0.3s;
+    }
+    .top-stats span:hover{transform:scale(1.1);}
+
+    /* Hero CTA */
+    .hero-actions{
+      display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px;
+    }
+    .hero-input{
+      padding:12px 18px;
+      border:none;
+      border-radius:30px;
+      outline:none;
+      flex:1;
+      min-width:180px;
+      font-size:16px;
+    }
+    .cta-btn{
+      background:linear-gradient(45deg,#ff0033,#b30024);
+      color:#fff;padding:12px 30px;
+      border-radius:40px;text-decoration:none;
+      font-weight:bold;font-size:16px;
+      transition:.3s;box-shadow:0 5px 20px rgba(255,0,51,.5);
+      position:relative;
+      overflow:hidden;
+      display:inline-block;
+    }
+    .cta-btn::after{
+      content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+      background:radial-gradient(circle,#ff0033,transparent);
+      opacity:0;transition:.3s;pointer-events:none;
+    }
+    .cta-btn:hover::after{opacity:0.3;}
+    .cta-btn:hover{transform:scale(1.08);}
+
+    /* Features 2x2 old style */
+    .features-container{
+      max-width:1100px;
+      margin:0 auto 60px;
+      position:relative;
+      z-index:2;
+    }
+    .features{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      justify-items:center;
+    }
+    .feature{
+      background:rgba(255,0,51,0.15);
+      border:1px solid rgba(255,0,51,0.3);
+      border-radius:16px;
+      padding:25px;
+      text-align:center;
+      color:#fff;
+      font-size:16px;
+      width:90%;
+      transition:all 0.3s;
+      backdrop-filter:blur(5px);
+    }
+    .feature span{
+      font-size:28px;display:block;margin-bottom:10px;
+      color:#ff3366;
+    }
+    .feature:hover{
+      transform:scale(1.05);
+      box-shadow:0 8px 25px rgba(255,0,51,0.5);
     }
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+    /* Live Models */
+    .live-models{
+      display:flex;gap:20px;overflow-x:auto;padding:15px 0;
+      scrollbar-width:none;
+    }
+    .live-models::-webkit-scrollbar{display:none;}
+    .model{
+      flex:0 0 180px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,0,51,.3);
+      border-radius:16px;
+      text-align:center;
+      overflow:hidden;position:relative;
+      transition:.3s;
+    }
+    .model img{width:100%;height:200px;object-fit:cover;}
+    .model:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(255,0,51,0.5);}
+    .live-tag{
+      position:absolute;top:10px;left:10px;
+      background:#ff0033;padding:4px 10px;
+      border-radius:8px;font-size:12px;font-weight:bold;
+    }
+    .new-tag{
+      position:absolute;top:10px;right:10px;
+      background:#ff9933;padding:4px 10px;
+      border-radius:8px;font-size:12px;font-weight:bold;
+    }
+    .model p{padding:10px;font-size:14px;}
+
+    /* Floating CTA with pulse */
+    @keyframes pulse{
+      0%{box-shadow:0 0 10px rgba(255,0,51,0.5);}
+      50%{box-shadow:0 0 25px rgba(255,0,51,0.7);}
+      100%{box-shadow:0 0 10px rgba(255,0,51,0.5);}
+    }
+    .floating-btn{
+      position:fixed;bottom:20px;right:20px;
+      background:linear-gradient(45deg,#ff0033,#b30024);
+      color:#fff;padding:15px 25px;
+      border-radius:50px;text-decoration:none;
+      font-weight:bold;font-size:14px;
+      animation:pulse 2s infinite;
+      z-index:100;
     }
 
-    .card {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 25px;
-      padding: 25px;
-      max-width: 420px;
-      width: 100%;
-      color: #fff;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255, 0, 51, 0.3);
-      position: relative;
+    footer{
+      text-align:center;font-size:12px;padding:20px;
+      color:#aaa;border-top:1px solid #222;margin-top:40px;
     }
 
-    /* Sexy Title */
-    .card h1 {
-      font-size: 32px;
-      margin-bottom: 12px;
-      color: #FF3366;
-      text-shadow: 0 0 15px #FF0033;
-      letter-spacing: 2px;
-    }
+  </style>
+</head>
+<body>
+  
+  <!-- Hero Section -->
+  <header>
+    <div class="hero-content">
+      <!-- Top Stats -->
+      <div class="top-stats">
+        <span>💃 500+ Models Online</span>
+        <span>⏰ 24/7 Live</span>
+        <span>🔒 Secure & Private</span>
+        <span>⭐ 50K+ Users</span>
+      </div>
 
-    .card p.tagline {
-      font-size: 16px;
-      margin-bottom: 20px;
-      color: #FF99B2;
-    }
+      <h1>SexyChat</h1>
+      <p>Live. Hot. Private. Premium.</p>
 
-    /* Main Sexy Image */
-    .card img {
-      width: 100%;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
-    }
+      <!-- CTA + Form -->
+      <div class="hero-actions">
+        <input type="text" placeholder="Enter Username..." class="hero-input">
+        <a href="#" class="cta-btn">🔥 Start Free Chat</a>
+      </div>
 
-    /* Features Section */
-    .features {
-      background: rgba(255, 0, 51, 0.05);
-      padding: 15px;
-      border-radius: 15px;
-      text-align: left;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 0, 51, 0.3);
-    }
+      <!-- Features card below button -->
+      <div class="features-container">
+        <h2 style="text-align:center;margin-bottom:30px;">✨ Premium Features</h2>
+        <div class="features">
+          <div class="feature"><span>🔒</span>Secure & Private</div>
+          <div class="feature"><span>🎁</span>Free Trial for 100 Users</div>
+          <div class="feature"><span>💃</span>Live Models 24/7</div>
+          <div class="feature"><span>⭐</span>50K+ Verified Users</div>
+        </div>
+      </div>
 
-    .features li {
-      margin-bottom: 12px;
-      list-style: none;
-      font-size: 15px;
-      color: #fff;
-      position: relative;
-      padding-left: 28px;
-    }
+    </div>
+  </header>
 
-    .features li::before {
-      content: "🔥";
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
+  <!-- Live Models -->
+  <section>
+    <h2 style="text-align:center;margin-bottom:30px;">🔥 Models Live Now</h2>
+    <div class="live-models">
+      <div class="model">
+        <span class="live-tag">LIVE</span>
+        <img src="https://i.postimg.cc/RZhDScFK/NNN-9.jpg"><p>Priya, 21</p>
+      </div>
+      <div class="model">
+        <span class="live-tag">LIVE</span>
+        <img src="https://i.postimg.cc/4xsVTqhw/Web-Photo-Editor-1.jpg"><p>Poonam, 22</p>
+      </div>
+      <div class="model">
+        <span class="live-tag">LIVE</span>
+        <span class="new-tag">HOT</span>
+        <img src="https://i.postimg.cc/CLQRtgfY/instagram-sensation-sofia-ansari-viral-bold-photoshoot-167101864730.webp"><p>Sofia, 23</p>
+      </div>
+      <div class="model">
+        <span class="live-tag">LIVE</span>
+        <img src="https://i.postimg.cc/Wbk7XXh9/489bb4777a83ba478f96121110afbbf5.jpg"><p>Nidhi, 20</p>
+      </div>
+    </div>
+  </section>
 
-    /* Live Girls Carousel */
-    .live-girls {
-      display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding: 10px 0;
-      scrollbar-width: none;
-    }
+  <!-- Floating CTA -->
+  <a href="#" class="floating-btn">🔥 Start Now</a>
 
-    .live-girls::-webkit-scrollbar {
-      display: none;
-    }
+  <footer>
+    By using, you confirm you are 18+ <br> © 2025 SexyChat Premium
+  </footer>
 
-    .girl-card {
-      background: rgba(255, 0, 51, 0.05);
-      border: 1px solid rgba(255, 0, 51, 0.3);
-      border-radius: 15px;
-      padding: 8px;
-      text-align: center;
-      min-width: 90px;
-      position: relative;
-    }
-
-    .girl-card img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 5px;
-    }
-
-    .girl-card span {
-      font-size: 13px;
-      color: #fff;
-      display: block;
-    }
-
-    .live-badge {
+</body>
+</html>    .live-badge {
       position: absolute;
       top: 5px;
       left: 5px;
