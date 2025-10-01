@@ -3,234 +3,362 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SexyChat - Premium</title>
+  <title>SexyChat - Adult Chat</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family: Arial, sans-serif;
-      background:#0a0a0a;
-      color:#fff;
-      overflow-x:hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Hero Section */
-    header{
-      min-height:90vh;
-      background:url("https://i.postimg.cc/3Nj6dzrn/1000125288.jpg") center/cover no-repeat;
-      display:flex;justify-content:center;align-items:flex-start;
-      text-align:center;position:relative;padding:50px 20px 0;
-    }
-    header::after{
-      content:"";position:absolute;top:0;left:0;width:100%;height:100%;
-      background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0.85));
-      z-index:1;
-    }
-    .hero-content{position:relative;z-index:2;max-width:650px;}
-    header h1{
-      font-size:50px;margin-bottom:15px;
-      color:#ff3366;text-shadow:0 0 15px #ff0033;
-    }
-    header p{
-      font-size:20px;margin-bottom:25px;
-      color:#ffb3c1;
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000, #1A0006);
+      overflow-x: hidden;
     }
 
-    /* Top Stats */
-    .top-stats{
-      display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-bottom:25px;
-    }
-    .top-stats span{
-      background:rgba(255,255,255,0.08);
-      border:1px solid rgba(255,0,51,0.4);
-      padding:6px 14px;border-radius:25px;
-      font-size:14px;color:#fff;
-      transition:transform 0.3s;
-    }
-    .top-stats span:hover{transform:scale(1.1);}
-
-    /* Hero CTA */
-    .hero-actions{
-      display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px;
-    }
-    .hero-input{
-      padding:12px 18px;
-      border:none;
-      border-radius:30px;
-      outline:none;
-      flex:1;
-      min-width:180px;
-      font-size:16px;
-    }
-    .cta-btn{
-      background:linear-gradient(45deg,#ff0033,#b30024);
-      color:#fff;padding:12px 30px;
-      border-radius:40px;text-decoration:none;
-      font-weight:bold;font-size:16px;
-      transition:.3s;box-shadow:0 5px 20px rgba(255,0,51,.5);
-      position:relative;
-      overflow:hidden;
-      display:inline-block;
-    }
-    .cta-btn::after{
-      content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-      background:radial-gradient(circle,#ff0033,transparent);
-      opacity:0;transition:.3s;pointer-events:none;
-    }
-    .cta-btn:hover::after{opacity:0.3;}
-    .cta-btn:hover{transform:scale(1.08);}
-
-    /* Features 2x2 old style */
-    .features-container{
-      max-width:1100px;
-      margin:0 auto 60px;
-      position:relative;
-      z-index:2;
-    }
-    .features{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-      justify-items:center;
-    }
-    .feature{
-      background:rgba(255,0,51,0.15);
-      border:1px solid rgba(255,0,51,0.3);
-      border-radius:16px;
-      padding:25px;
-      text-align:center;
-      color:#fff;
-      font-size:16px;
-      width:90%;
-      transition:all 0.3s;
-      backdrop-filter:blur(5px);
-    }
-    .feature span{
-      font-size:28px;display:block;margin-bottom:10px;
-      color:#ff3366;
-    }
-    .feature:hover{
-      transform:scale(1.05);
-      box-shadow:0 8px 25px rgba(255,0,51,0.5);
+    /* Background Image + Blur Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://i.postimg.cc/7P5qfTW1/aditi-mistry-hot-live-app.jpg") no-repeat center center/cover;
+      filter: blur(12px) brightness(0.45);
+      z-index: -1;
     }
 
-    /* Live Models */
-    .live-models{
-      display:flex;gap:20px;overflow-x:auto;padding:15px 0;
-      scrollbar-width:none;
-    }
-    .live-models::-webkit-scrollbar{display:none;}
-    .model{
-      flex:0 0 180px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,0,51,.3);
-      border-radius:16px;
-      text-align:center;
-      overflow:hidden;position:relative;
-      transition:.3s;
-    }
-    .model img{width:100%;height:200px;object-fit:cover;}
-    .model:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(255,0,51,0.5);}
-    .live-tag{
-      position:absolute;top:10px;left:10px;
-      background:#ff0033;padding:4px 10px;
-      border-radius:8px;font-size:12px;font-weight:bold;
-    }
-    .new-tag{
-      position:absolute;top:10px;right:10px;
-      background:#ff9933;padding:4px 10px;
-      border-radius:8px;font-size:12px;font-weight:bold;
-    }
-    .model p{padding:10px;font-size:14px;}
-
-    /* Floating CTA with pulse */
-    @keyframes pulse{
-      0%{box-shadow:0 0 10px rgba(255,0,51,0.5);}
-      50%{box-shadow:0 0 25px rgba(255,0,51,0.7);}
-      100%{box-shadow:0 0 10px rgba(255,0,51,0.5);}
-    }
-    .floating-btn{
-      position:fixed;bottom:20px;right:20px;
-      background:linear-gradient(45deg,#ff0033,#b30024);
-      color:#fff;padding:15px 25px;
-      border-radius:50px;text-decoration:none;
-      font-weight:bold;font-size:14px;
-      animation:pulse 2s infinite;
-      z-index:100;
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    footer{
-      text-align:center;font-size:12px;padding:20px;
-      color:#aaa;border-top:1px solid #222;margin-top:40px;
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 25px;
+      max-width: 420px;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      position: relative;
+    }
+
+    /* Sexy Title */
+    .card h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #FF3366;
+      text-shadow: 0 0 15px #FF0033;
+      letter-spacing: 2px;
+    }
+
+    .card p.tagline {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #FF99B2;
+    }
+
+    /* Main Sexy Image */
+    .card img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
+    }
+
+    /* Features Section */
+    .features {
+      background: rgba(255, 0, 51, 0.05);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: left;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 0, 51, 0.3);
+    }
+
+    .features li {
+      margin-bottom: 12px;
+      list-style: none;
+      font-size: 15px;
+      color: #fff;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .features li::before {
+      content: "🔥";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* Live Girls Carousel */
+    .live-girls {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .live-girls::-webkit-scrollbar {
+      display: none;
+    }
+
+    .girl-card {
+      background: rgba(255, 0, 51, 0.05);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      border-radius: 15px;
+      padding: 8px;
+      text-align: center;
+      min-width: 90px;
+      position: relative;
+    }
+
+    .girl-card img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 5px;
+    }
+
+    .girl-card span {
+      font-size: 13px;
+      color: #fff;
+      display: block;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: #FF0033;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    /* Sexy Download Button */
+    .download-btn {
+      display: inline-block;
+      padding: 16px 45px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(45deg, #FF0033, #B30024);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0px 5px 20px rgba(255, 0, 51, 0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .download-btn::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 60px;
+      background: radial-gradient(rgba(255, 0, 51, 0.4), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.08);
+      background: linear-gradient(45deg, #FF3366, #B30024);
+    }
+
+    .download-btn:hover::after {
+      opacity: 1;
+    }
+
+    /* Countdown Timer */
+    #countdown {
+      color: #FF3366;
+      font-size: 14px;
+      margin-top: 8px;
+      text-shadow: 0 0 5px rgba(255,0,51,0.8);
+    }
+
+    /* Trust Badges */
+    .trust-badges {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .trust-badge {
+      flex: 1;
+      text-align: center;
+      background: rgba(255, 0, 51, 0.05);
+      border: 1px solid rgba(255, 0, 51, 0.3);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    /* Live Popup Notification */
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 0, 51, 0.9);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      display: none;
+      animation: fadeInOut 5s ease-in-out;
+      z-index: 1000;
+      box-shadow: 0 0 15px rgba(255,0,51,0.8);
+    }
+
+    @keyframes fadeInOut {
+      0% {opacity: 0; bottom: 10px;}
+      20% {opacity: 1; bottom: 20px;}
+      80% {opacity: 1; bottom: 20px;}
+      100% {opacity: 0; bottom: 10px;}
+    }
+
+    /* Footer Section */
+    .footer {
+      font-size: 11px;
+      margin-top: 18px;
+      color: #999;
     }
 
   </style>
 </head>
 <body>
-  
-  <!-- Hero Section -->
-  <header>
-    <div class="hero-content">
-      <!-- Top Stats -->
-      <div class="top-stats">
-        <span>💃 500+ Models Online</span>
-        <span>⏰ 24/7 Live</span>
-        <span>🔒 Secure & Private</span>
-        <span>⭐ 50K+ Users</span>
-      </div>
-
+  <div class="container">
+    <div class="card">
       <h1>SexyChat</h1>
-      <p>Live. Hot. Private. Premium.</p>
+      <p class="tagline">Live. Hot. Private.</p>
 
-      <!-- CTA + Form -->
-      <div class="hero-actions">
-        <input type="text" placeholder="Enter Username..." class="hero-input">
-        <a href="#" class="cta-btn">🔥 Start Free Chat</a>
-      </div>
+      <img src="https://i.postimg.cc/7P5qfTW1/aditi-mistry-hot-live-app.jpg" alt="SexyChat Main Image">
 
-      <!-- Features card below button -->
-      <div class="features-container">
-        <h2 style="text-align:center;margin-bottom:30px;">✨ Premium Features</h2>
-        <div class="features">
-          <div class="feature"><span>🔒</span>Secure & Private</div>
-          <div class="feature"><span>🎁</span>Free Trial for 100 Users</div>
-          <div class="feature"><span>💃</span>Live Models 24/7</div>
-          <div class="feature"><span>⭐</span>50K+ Verified Users</div>
+      <!-- Live Girls Section -->
+      <div class="live-girls">
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/RZhDScFK/NNN-9.jpg" alt="Priya">
+          <span>Priya, 21</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/tCXcf0Gr/mona.png" alt="Riya">
+          <span>Riya, 22</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/CLQRtgfY/instagram-sensation-sofia-ansari-viral-bold-photoshoot-167101864730.webp" alt="Sofia">
+          <span>Sofia, 23</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/Wbk7XXh9/489bb4777a83ba478f96121110afbbf5.jpg" alt="Nidhi">
+          <span>Nidhi, 20</span>
+        </div>
+        <div class="girl-card">
+          <span class="live-badge">Live</span>
+          <img src="https://i.postimg.cc/pL5JckrG/images.jpg" alt="Ananya">
+          <span>Ananya, 21</span>
         </div>
       </div>
 
+      <!-- Features Section -->
+      <ul class="features">
+        <li>Private & secure 18+ video calls</li>
+        <li>Free 5 min chat for first 100 users</li>
+        <li>Live sexy models 24/7 waiting for you</li>
+        <li>No ads, 100% discreet and private</li>
+      </ul>
+
+      <!-- Download Button -->
+      <a href="https://github.com/funk50161-lab/Sexy-chat-app/releases/download/V1.1/sexy.chat_v1.1.apk" class="download-btn">🔥 Start Free Chat Now</a>
+      <p id="countdown"></p>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="trust-badge">✅ Verified Profiles</div>
+        <div class="trust-badge">🔒 Secure & Private</div>
+        <div class="trust-badge">⭐ 50K+ Users</div>
+      </div>
+
+      <div class="footer">
+        By downloading, you confirm you are 18+ and agree to our Terms.<br>
+        © 2025 SexyChat. All rights reserved.
+      </div>
     </div>
-  </header>
+  </div>
 
-  <!-- Live Models -->
-  <section>
-    <h2 style="text-align:center;margin-bottom:30px;">🔥 Models Live Now</h2>
-    <div class="live-models">
-      <div class="model">
-        <span class="live-tag">LIVE</span>
-        <img src="https://i.postimg.cc/RZhDScFK/NNN-9.jpg"><p>Priya, 21</p>
-      </div>
-      <div class="model">
-        <span class="live-tag">LIVE</span>
-        <img src="https://i.postimg.cc/4xsVTqhw/Web-Photo-Editor-1.jpg"><p>Poonam, 22</p>
-      </div>
-      <div class="model">
-        <span class="live-tag">LIVE</span>
-        <span class="new-tag">HOT</span>
-        <img src="https://i.postimg.cc/CLQRtgfY/instagram-sensation-sofia-ansari-viral-bold-photoshoot-167101864730.webp"><p>Sofia, 23</p>
-      </div>
-      <div class="model">
-        <span class="live-tag">LIVE</span>
-        <img src="https://i.postimg.cc/Wbk7XXh9/489bb4777a83ba478f96121110afbbf5.jpg"><p>Nidhi, 20</p>
-      </div>
-    </div>
-  </section>
+  <!-- Live Popup Notification -->
+  <div id="popup" class="popup"></div>
 
-  <!-- Floating CTA -->
-  <a href="#" class="floating-btn">🔥 Start Now</a>
+  <script>
+    // Countdown Timer
+    function startTimer(duration, display) {
+      let timer = duration, minutes, seconds;
+      setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-  <footer>
-    By using, you confirm you are 18+ <br> © 2025 SexyChat Premium
-  </footer>
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
+        display.textContent = `⏳ Offer Ends in ${minutes}:${seconds}`;
+
+        if (--timer < 0) {
+          timer = duration;
+        }
+      }, 1000);
+    }
+
+    window.onload = function() {
+      const fiveMinutes = 60 * 5;
+      startTimer(fiveMinutes, document.querySelector('#countdown'));
+
+      // Live Popup Notifications
+      const popup = document.getElementById("popup");
+      const messages = [
+        "🔥 Sneha just went live - Join now!",
+        "💋 Aditi is available for a private call!",
+        "😍 Riya started a hot new show!",
+        "🔥 3 new models are live right now!"
+      ];
+
+      setInterval(() => {
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        popup.textContent = randomMessage;
+        popup.style.display = "block";
+        setTimeout(() => {
+          popup.style.display = "none";
+        }, 4000);
+      }, 8000);
+    };
+  </script>
 </body>
 </html>
